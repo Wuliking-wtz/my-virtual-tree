@@ -30,7 +30,7 @@
       >
       </span>
       <el-checkbox
-        v-if="showCheckbox"
+        v-if="showCheckbox && !(source.data && source.data.isExpandMoreNode)"
         v-model="source.checked"
         :indeterminate="source.indeterminate"
         :disabled="!!source.disabled"

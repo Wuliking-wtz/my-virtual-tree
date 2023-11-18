@@ -12,12 +12,13 @@
 
     <p>sx-tree</p>
     <div class="virtual-tree-content">
-    <sx-tree ref="tree" 
+    <sx-tree ref="tree"
      nodeKey="key"
      lazy
      :load="doLoadNode"
      :props="defaultProps"
-  
+     :render-content="renderContent"
+     @node-click="onNodeClick"
      :height="height"
      show-checkbox />
     </div>
@@ -41,7 +42,8 @@ export default {
       count: 0,
       defaultProps: {
         children: 'children',
-        label: 'displayValue'
+        label: 'displayValue',
+        isLeaf: 'isLeaf'
       }
     }
   },
@@ -59,6 +61,19 @@ export default {
         console.warn('getData', data)
        callback(data)
       })
+    },
+    renderContent (h, { node, data, store }) {
+      const isExpandMoreNode = node.data && node.data.isExpandMoreNode
+      if (node.data.isExpandMoreNode) {
+      }
+      return (
+        isExpandMoreNode
+          ? <span class="el-tree-node__label el-tree-node-expand-more">点击展开更多</span>
+          : <span class="el-tree-node__label">{ node.label }</span>
+      )
+    },
+    onNodeClick () {
+      console.warn('节点点击');
     },
     dig (path = '0', level = 4) {
       const list = [];
@@ -89,6 +104,13 @@ export default {
             value: 'value_' + i,
             level: i % 3,
           })
+        }
+        items[0] = {
+          key: 0,
+          displayValue: '',
+          disabled: true,
+          isExpandMoreNode: true,
+          isLeaf: true
         }
         resolve(items)
       })

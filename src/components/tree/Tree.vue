@@ -51,14 +51,10 @@
   import { getNodeKey, findNearestComponent } from './model/util';
   import ElVirtualNode from './tree-virtual-node.vue';
   import {t} from 'element-ui/lib/locale';
-  // import emitter from 'element-ui/lib/mixins/emitter';
   import { addClass, removeClass } from 'element-ui/lib/utils/dom';
 
   export default {
     name: 'ElTree',
-
-    // mixins: [emitter],
-
     components: {
       VirtualList
     },
